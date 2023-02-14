@@ -9,10 +9,19 @@ module.exports = {
       colors:{
         conduit:{
           green: '#5CB85C',
+          darkGreen: '#3d8b3a',
+          tag: '#aaa',
+          lightenGray: '#ddd',
+          gray: '#bbb',
+          black: '#373a3c',
+          darkGray: '#999',
         },
       },
       spacing:{
         navItem: '0.425rem',
+        0.3: '0.3rem',
+        0.2: '0.2rem',
+        tag: '0.6rem',
       },
       boxShadow:{
         banner:
@@ -23,6 +32,11 @@ module.exports = {
       },
       fontSize: {
         logo:'3.5rem',
+        date: '0.8rem',
+      },
+      borderRadius:{
+        buttonSm: '0.2rem',
+        tag: '10rem',
       },
     },
   },
