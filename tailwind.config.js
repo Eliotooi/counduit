@@ -15,6 +15,7 @@ module.exports = {
           gray: '#bbb',
           black: '#373a3c',
           darkGray: '#999',
+          pageHoverBg: '#eceeef',
         },
       },
       spacing:{
