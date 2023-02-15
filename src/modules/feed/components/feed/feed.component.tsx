@@ -1,24 +1,28 @@
 import { FC } from 'react'
 import { useState } from 'react';
 import ReactPaginate from 'react-paginate'
+import { useSearchParams } from 'react-router-dom';
 import { Container } from '../../../../common/components/container/container.components'
 import { useGetGlobalFeedQuery } from '../../api/repository'
 import { FEED_PAGE_SIZE } from '../../consts'
 import { ArticleList } from '../article-list/article-list.component'
 import { FeedToggle } from '../feed-toggle/feed-toggle.component'
+import { serializeSearchParams } from '../../../../utils/router';
 
 interface FeedProps {}
 
 export const Feed: FC<FeedProps>=()=>{
-  const [page, setPage] = useState(0)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [page, setPage] = useState(searchParams.get('page') ? Number(searchParams.get('page')) : 0)
 
   const handlePageChange = ({selected}: {selected: number})=>{
     setPage(selected)
+    setSearchParams(serializeSearchParams({page: String(selected)}))
   }
 
-  const { data, error, isLoading } = useGetGlobalFeedQuery({ page })
+  const { data, error, isLoading, isFetching } = useGetGlobalFeedQuery({ page })
   
-  if(isLoading){
+  if(isLoading || isFetching){
     return(
       <Container>
         Feed Loading...
@@ -38,7 +42,7 @@ export const Feed: FC<FeedProps>=()=>{
     <Container>
       <FeedToggle />
       <div className='flex'>
-        <div>
+        <div className='w-3/4'>
           <ArticleList list={data?.articles || []} />
           <div className='my-6'>
           <ReactPaginate 
@@ -55,6 +59,9 @@ export const Feed: FC<FeedProps>=()=>{
             forcePage={page}        
           />
         </div>
+        </div>
+        <div className='w-1/4'>
+          tags
         </div>
       </div>
     </Container>
