@@ -16,6 +16,9 @@ module.exports = {
           black: '#373a3c',
           darkGray: '#999',
           pageHoverBg: '#eceeef',
+          tagCloudBg: '#f3f3f3',
+          tagItemBg: '#818a91',
+          tagItemBgDarken: '#687077'
         },
       },
       spacing:{
