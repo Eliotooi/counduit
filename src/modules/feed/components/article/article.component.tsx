@@ -32,7 +32,7 @@ export const Article: FC<ArticleProps> = ({
                 <Link to={`/@${author.username}`} className='font-medium'>
                   {author.username}
                 </Link>
-                <span className='text-conduit-gray text-date'>
+                <span className='text-conduit-gray-500 text-date'>
                   {DateTime.fromISO(createdAt.toString()).toLocaleString(DateTime.DATE_FULL)}
                 </span>
               </div>
@@ -40,14 +40,14 @@ export const Article: FC<ArticleProps> = ({
             <FavoriteButton count={favoritesCount}/>
           </div>   
           <Link to='/article/qwert' className='hover:no-underline'>
-            <h1 className='mb-1 font-semibold text-2xl text-conduit-black'>
+            <h1 className='mb-1 font-semibold text-2xl text-conduit-gray-1000'>
               {title}
             </h1>
-            <p className='text-conduit-darkGray font-light mb-1'>
+            <p className='text-conduit-gray-700 font-light mb-1'>
               {description}  
             </p>
             <div className='flex justify-between'>
-              <span className='text-conduit-gray text-date font-light'>
+              <span className='text-conduit-gray-500 text-date font-light'>
                 Read more...
               </span>
               <TagList list={tagList}/>

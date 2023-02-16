@@ -8,17 +8,22 @@ module.exports = {
       },
       colors:{
         conduit:{
+          gray:{
+            100: '#f3f3f3',
+            200: '#eceeef',
+            300: '#ddd',
+            400: '#ccc',
+            500: '#bbb',
+            600: '#aaa',
+            650: 'a1a1a1',
+            700: '#999',
+            800: '#818a91',
+            900: '#687077',
+            1000: '#373a3c',
+
+          },
           green: '#5CB85C',
           darkGreen: '#3d8b3a',
-          tag: '#aaa',
-          lightenGray: '#ddd',
-          gray: '#bbb',
-          black: '#373a3c',
-          darkGray: '#999',
-          pageHoverBg: '#eceeef',
-          tagCloudBg: '#f3f3f3',
-          tagItemBg: '#818a91',
-          tagItemBgDarken: '#687077'
         },
       },
       spacing:{
@@ -26,6 +31,7 @@ module.exports = {
         0.3: '0.3rem',
         0.2: '0.2rem',
         tag: '0.6rem',
+        25: '6.25rem',
       },
       boxShadow:{
         banner:
