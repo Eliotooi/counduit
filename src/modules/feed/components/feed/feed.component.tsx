@@ -1,13 +1,9 @@
 import { FC } from 'react'
 import ReactPaginate from 'react-paginate'
-import { useSearchParams } from 'react-router-dom';
-import { Container } from '../../../../common/components/container/container.components'
 import { FEED_PAGE_SIZE } from '../../consts'
 import { ArticleList } from '../article-list/article-list.component'
-import { FeedToggle } from '../feed-toggle/feed-toggle.component'
-import { serializeSearchParams } from '../../../../utils/router';
-import { TagCloud } from '../tag-cloud/tag-cloud.component';
 import { FeedData } from '../../api/repository';
+import { usePageParam } from '../../hooks/use-page-params.hook';
 
 interface FeedProps {
   isLoading: boolean
@@ -17,36 +13,40 @@ interface FeedProps {
 }
 
 export const Feed: FC<FeedProps>=({ isLoading, isFetching, error, data })=>{
-  const [searchParams, setSearchParams] = useSearchParams()
-  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 0
+  const { page, setPage } = usePageParam()
 
   const handlePageChange = ({selected}: {selected: number})=>{
-    setSearchParams(serializeSearchParams({page: String(selected)}))
+    setPage(selected)
   }
   
   if(isLoading || isFetching){
     return(
-      <Container>
+      <p className='mt-4'>
         Feed Loading...
-      </Container>
+      </p>
     )
   }
 
   if(error){
     return(
-      <Container>
+      <p className='mt-4'>
         Error while loading feed
-      </Container>
+      </p>
+    )
+  }
+
+  if(data?.articlesCount === 0){
+    return(
+      <p className='mt-4'>
+        No articles are here... yet.
+      </p>
     )
   }
 
   return(
-    <Container>
-      <FeedToggle />
-      <div className='flex'>
-        <div className='w-3/4'>
-          <ArticleList list={data?.articles || []} />
-          <div className='my-6'>
+    <>
+      <ArticleList list={data?.articles || []} />
+          <nav className='my-6'>
           <ReactPaginate 
             pageCount={(data?.articlesCount || 0) / FEED_PAGE_SIZE}
             pageRangeDisplayed={(data?.articlesCount || 0) / FEED_PAGE_SIZE}
@@ -60,12 +60,7 @@ export const Feed: FC<FeedProps>=({ isLoading, isFetching, error, data })=>{
             onPageChange={handlePageChange}
             forcePage={page}        
           />
-        </div>
-        </div>
-        <div className='w-1/4 pl-3'>
-          <TagCloud />
-        </div>
-      </div>
-    </Container>
+          </nav>
+    </>
   )
 }
