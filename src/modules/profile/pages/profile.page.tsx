@@ -6,6 +6,7 @@ import { usePageParam } from '../../feed/hooks/use-page-params.hook'
 import { useLocation, useParams } from 'react-router-dom'
 import { Container } from '../../../common/components/container/container.components'
 import { FeedToggle } from '../../feed/components/feed-toggle/feed-toggle.component'
+import { useGetProfileQuery } from '../api/repository'
 
 interface ProfilePageProps {}
 
@@ -13,6 +14,10 @@ export const ProfilePage: FC<ProfilePageProps> =()=>{
   const { page } = usePageParam()
   const { profile } = useParams()
   const { pathname } = useLocation()
+
+  const { data: profileInfo, isLoading: profileLoading } = useGetProfileQuery({
+    username: profile!,
+  });
 
   const { data, isLoading, isFetching, error } = useGetProfileFeedQuery({
     page,
@@ -25,9 +30,13 @@ export const ProfilePage: FC<ProfilePageProps> =()=>{
     link: `/${encodeURIComponent(profile!)}/favorites`} ,
   ]
 
+  if (profileLoading) {
+    return null;
+  }
+
   return(
     <>
-      <ProfileBanner />
+      <ProfileBanner  profile={profileInfo!.profile!} />
       <Container>
       <FeedToggle 
         defaultText='My Articles'

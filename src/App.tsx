@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Header } from './common/components/hader/header.component'
+import { Header } from './common/components/header/header.component'
 import { Route, Routes } from 'react-router-dom'
 import { GlobalFeedPage } from './modules/feed/pages/global-feed-page'
 import { ProfilePage } from './modules/profile/pages/profile.page'
