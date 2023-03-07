@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        titillium:["Titillium Web", "sans-serif"]
+        titillium:["Titillium Web", "sans-serif"],
+        sourceSelif: ["Source Selif Pro", "serif"],
       },
       colors:{
         conduit:{
@@ -20,7 +21,7 @@ module.exports = {
             800: '#818a91',
             900: '#687077',
             1000: '#373a3c',
-
+            1100: '#333',
           },
           green: '#5CB85C',
           darkGreen: '#3d8b3a',
@@ -42,11 +43,17 @@ module.exports = {
       },
       fontSize: {
         logo:'3.5rem',
+        articaleTitle: '2.8rem',
+        articaleBody: '1.2rem',
         date: '0.8rem',
       },
       borderRadius:{
         buttonSm: '0.2rem',
         tag: '10rem',
+      },
+      lineHeight:{
+        articaleTitle:'1.1',
+        articaleBody: '1.8',
       },
     },
   },
