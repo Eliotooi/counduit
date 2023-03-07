@@ -1,14 +1,17 @@
-import { FC } from 'react'
+import { ComponentProps, FC } from 'react'
 import { ArticaleAuthor, NameStyleEnum } from '../arcticale-author/arcticale-author.component'
 import { FollowButton } from '../../../profile/components/follow-button/follow-button.component'
 import { FavoriteButton } from '../favorite-button/favorite-button.component'
 import { Author } from '../../api/dto/global-feed.in';
 
 interface ArticaleMetaProps {
-  authorNameStyle?: keyof typeof NameStyleEnum;
+  authorNameStyle?: ComponentProps<typeof ArticaleAuthor>['nameStyle'];
+  authorDirection?: ComponentProps<typeof ArticaleAuthor>['direction'];
+  authorNameSize?: ComponentProps<typeof ArticaleAuthor>['nameSize'];
   author: Author;
-  likes: number;
+  likes?: number;
   publishedAt: string;
+  showActionButtons?: boolean;
 }
 
 export const ArticaleMeta: FC<ArticaleMetaProps> =({
@@ -16,6 +19,9 @@ export const ArticaleMeta: FC<ArticaleMetaProps> =({
     author,
     publishedAt,
     likes,
+    showActionButtons = true,
+    authorDirection,
+    authorNameSize,
   })=>{
   return(
     <div>
@@ -24,12 +30,16 @@ export const ArticaleMeta: FC<ArticaleMetaProps> =({
           author={author} 
           publishedAt={publishedAt}
           nameStyle={authorNameStyle}
+          direction={authorDirection}
+          nameSize={authorNameSize}
         />
       </div>
-      <div className='inline-flex gap-4'>
-        <FollowButton username={author.username} btnStyle='LIGHT'/>
-        <FavoriteButton count={likes} extended/>
-      </div>
+      {showActionButtons && (
+        <div className='inline-flex gap-4'>
+          <FollowButton username={author.username} btnStyle='LIGHT'/>
+          <FavoriteButton count={likes || 0} extended/>
+        </div>
+      )}
     </div>
   )
 }

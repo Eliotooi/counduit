@@ -3,8 +3,9 @@ import { ArticaleBanner } from '../components/articale-banner/articale-banner.co
 import { Container } from '../../../common/components/container/container.components'
 import { TagList } from '../components/tag-list/tag-list.component'
 import { ArticaleMeta } from '../components/article-meta/article-meta.componet'
-import { useGetSignleArticleQuery } from '../api/repository'
+import { useGetSingleArticleQuery } from '../api/repository'
 import { useParams } from 'react-router-dom'
+import { CommentsList } from '../components/comments-list/comments-list.component'
 
 interface ArticalePageProps {}
 
@@ -15,7 +16,7 @@ const convertNewLines = (body: string) => {
 export const ArticalePage: FC<ArticalePageProps> =()=>{
   const { slug } = useParams()
 
-  const {data} = useGetSignleArticleQuery({ slug: slug! })
+  const {data} = useGetSingleArticleQuery({ slug: slug! })
 
   if(!data){
     return <h1>Article not found</h1>
@@ -44,6 +45,7 @@ export const ArticalePage: FC<ArticalePageProps> =()=>{
             author={data.article.author}
           />
         </div>  
+        <CommentsList />
       </Container>
     </>
   )
