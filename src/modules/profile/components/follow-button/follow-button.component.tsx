@@ -1,32 +1,19 @@
-import clsx from 'clsx';
-import { FC } from 'react'
-
-enum ButtonStyleEnum {
-  DARK = 'DARK',
-  LIGHT = 'LIGHT',
-}
+import { ComponentProps, FC } from 'react'
+import { Button, ButtonStyleEnum } from '../../../../common/components/button/button.component';
 
 interface FollowButtonProps {
   username: string;
-  btnStyle?: keyof typeof ButtonStyleEnum;
+  btnStyle?: ComponentProps<typeof Button>['btnStyle'];
 }
 
-export const FollowButton: FC<FollowButtonProps> =({username, btnStyle = ButtonStyleEnum.DARK})=>{
-  const btnClasses = clsx(
-    'text-center align-middle curser-pointer select-none border py-1 px-2 text-sm rounded-buttonSm active:bg-conduit-gray-650 hover:bg-conduit-gray-400',
-    {
-      'border-conduit-gray-700 text-conduit-gray-700 focus:bg-conduit-gray-400 ':
-      btnStyle === ButtonStyleEnum.DARK,
-    
-      'border-conduit-gray-400 text-conduit-gray-400 hover:text-white ':
-      btnStyle === ButtonStyleEnum.LIGHT,
-    }
-    )
-
+export const FollowButton: FC<FollowButtonProps> =({
+  username,
+  btnStyle = ButtonStyleEnum.DARK
+})=>{
   return(
-    <button className={btnClasses}>
+    <Button btnStyle={btnStyle}>
       <i className='ion-plus-round'/>
       &nbsp; Follow {username}
-    </button>
+    </Button>
   )
 }

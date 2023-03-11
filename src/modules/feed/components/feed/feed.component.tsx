@@ -48,8 +48,8 @@ export const Feed: FC<FeedProps>=({ isLoading, isFetching, error, data })=>{
       <ArticleList list={data?.articles || []} />
           <nav className='my-6'>
           <ReactPaginate 
-            pageCount={(data?.articlesCount || 0) / FEED_PAGE_SIZE}
-            pageRangeDisplayed={(data?.articlesCount || 0) / FEED_PAGE_SIZE}
+            pageCount={Math.ceil((data?.articlesCount || 0) / FEED_PAGE_SIZE)}
+            pageRangeDisplayed={Math.ceil((data?.articlesCount || 0) / FEED_PAGE_SIZE)}
             previousLabel={null}
             nextLabel={null}
             containerClassName="flex my-4"

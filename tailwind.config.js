@@ -27,6 +27,7 @@ module.exports = {
           },
           green: '#5CB85C',
           darkGreen: '#3d8b3a',
+          red: '#B85C5C'
         },
       },
       spacing:{
@@ -56,6 +57,9 @@ module.exports = {
       lineHeight:{
         articaleTitle:'1.1',
         articaleBody: '1.8',
+      },
+      opacity:{
+        15: '0.15'
       },
     },
   },
