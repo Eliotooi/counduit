@@ -6,10 +6,8 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { Button } from '../../../common/components/button/button.component'
-import { useLazySignUpQuery } from '../api/repository'
 import { toast } from 'react-toastify'
-import { setUser } from '../service/slice'
-import { useAppDispatch } from '../../../store/store'
+import { useAuth } from '../hooks/use-auth'
 
 interface SignUpPageProps {}
 
@@ -26,6 +24,8 @@ const validationSchema = yup.object({
 })
 
 export const SignUpPage: FC<SignUpPageProps>=()=>{
+  const { signUp } = useAuth()
+
   const { register, handleSubmit, formState } = useForm<SignUpFromValues>({
     defaultValues: {
       username: '',
@@ -35,17 +35,11 @@ export const SignUpPage: FC<SignUpPageProps>=()=>{
     resolver: yupResolver(validationSchema)
   })
 
-  const [triggerSignUpQuery] = useLazySignUpQuery()
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
 
   const onSubmit = async (values: SignUpFromValues) =>{
     try{
-      const {data} = await triggerSignUpQuery(values, false)
-      if(!data){
-        throw new Error('No data in query')
-      }
-      dispatch(setUser(data.user))
+      await signUp(values)
       navigate('/')
     }catch(e){
       toast.error('Somsing went wrong. Please, try again later')
